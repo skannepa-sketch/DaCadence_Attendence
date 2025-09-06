@@ -290,7 +290,6 @@
         <div class="controls">
             <button id="add-date">Add New Date</button>
             <button id="add-member">Add New Member</button>
-            <button id="print">Print Sheet</button>
         </div>
         
         <div class="sheet-content">
@@ -396,7 +395,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Sample data for the acapella group
-            const members = [
+             members = [
                 { id: 'member-1', name: 'Willa' },
                 { id: 'member-2', name: 'Catherine' },
                 { id: 'member-3', name: 'Sadie' },
@@ -410,7 +409,7 @@
             ];
             
             // Initialize empty dates array
-            const dates = [];
+             dates = [];
             
             // Initialize attendance data
             let attendanceData = {};
@@ -419,16 +418,16 @@
             });
             
             // DOM elements
-            const dateModal = document.getElementById('date-modal');
-            const eventDetailsModal = document.getElementById('event-details-modal');
-            const memberModal = document.getElementById('member-modal');
-            const deleteBtn = document.getElementById('modal-delete');
+             dateModal = document.getElementById('date-modal');
+             eventDetailsModal = document.getElementById('event-details-modal');
+             memberModal = document.getElementById('member-modal');
+             deleteBtn = document.getElementById('modal-delete');
             let currentEditingDateId = null;
             
             // Render the table
             function renderTable() {
-                const tableHead = document.querySelector('#attendance-table thead tr');
-                const tableBody = document.querySelector('#attendance-table tbody');
+                 tableHead = document.querySelector('#attendance-table thead tr');
+                 tableBody = document.querySelector('#attendance-table tbody');
                 
                 // Clear existing content
                 tableHead.innerHTML = '<th>Name</th>';
@@ -437,7 +436,7 @@
                 // Add date headers if we have dates
                 if (dates.length > 0) {
                     dates.forEach(date => {
-                        const dateHeader = document.createElement('th');
+                         dateHeader = document.createElement('th');
                         dateHeader.innerHTML = `
                             ${formatDate(date.date)}
                             <span class="event-type">${date.type.charAt(0).toUpperCase()}</span>
@@ -455,7 +454,7 @@
                     });
                 } else {
                     // Add a placeholder if no dates
-                    const placeholderHeader = document.createElement('th');
+                     placeholderHeader = document.createElement('th');
                     placeholderHeader.textContent = "No dates added yet. Click 'Add New Date' to get started.";
                     placeholderHeader.colSpan = 1;
                     placeholderHeader.style.padding = '20px';
@@ -466,18 +465,18 @@
                 
                 // Add member rows
                 members.forEach(member => {
-                    const row = document.createElement('tr');
+                     row = document.createElement('tr');
                     
                     // Member name cell
-                    const nameCell = document.createElement('td');
+                     nameCell = document.createElement('td');
                     nameCell.className = 'name-col';
                     
-                    const nameSpan = document.createElement('span');
+                     nameSpan = document.createElement('span');
                     nameSpan.textContent = member.name;
                     nameCell.appendChild(nameSpan);
                     
                     // Add delete button for member
-                    const deleteButton = document.createElement('button');
+                     deleteButton = document.createElement('button');
                     deleteButton.className = 'delete-member-btn';
                     deleteButton.innerHTML = '×';
                     deleteButton.title = 'Delete member';
@@ -492,7 +491,7 @@
                     // Attendance cells if we have dates
                     if (dates.length > 0) {
                         dates.forEach(date => {
-                            const cell = document.createElement('td');
+                             cell = document.createElement('td');
                             cell.textContent = attendanceData[member.id][date.id] || '';
                             cell.className = 'attendance-cell';
                             if (cell.textContent === 'X') {
@@ -503,7 +502,7 @@
                             
                             // Add click event to cycle through attendance states
                             cell.addEventListener('click', function() {
-                                const current = this.textContent;
+                                 current = this.textContent;
                                 if (current === '') {
                                     this.textContent = '✓';
                                     this.classList.remove('absent');
@@ -542,30 +541,30 @@
             function formatTime(timeString) {
                 if (!timeString) return '';
                 
-                const [hours, minutes] = timeString.split(':');
-                const hour = parseInt(hours);
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-                const displayHour = hour % 12 || 12;
+                 [hours, minutes] = timeString.split(':');
+                 hour = parseInt(hours);
+                 ampm = hour >= 12 ? 'PM' : 'AM';
+                 displayHour = hour % 12 || 12;
                 
                 return `${displayHour}:${minutes} ${ampm}`;
             }
             
             // Update absence summary
             function updateAbsenceSummary() {
-                const absenceTable = document.querySelector('#absence-table tbody');
+                 absenceTable = document.querySelector('#absence-table tbody');
                 absenceTable.innerHTML = '';
                 
                 members.forEach(member => {
-                    const row = document.createElement('tr');
+                     row = document.createElement('tr');
                     
                     // Member name cell
-                    const nameCell = document.createElement('td');
+                     nameCell = document.createElement('td');
                     nameCell.textContent = member.name;
                     nameCell.className = 'name-col';
                     row.appendChild(nameCell);
                     
                     // Absence count cell
-                    const absenceCell = document.createElement('td');
+                     absenceCell = document.createElement('td');
                     let absenceCount = 0;
                     
                     dates.forEach(date => {
@@ -583,11 +582,11 @@
             
             // Show event details
             function showEventDetails(dateId) {
-                const date = dates.find(d => d.id === dateId);
+                 date = dates.find(d => d.id === dateId);
                 if (!date) return;
                 
-                const eventInfo = document.getElementById('event-info');
-                const eventDetailsTitle = document.getElementById('event-details-title');
+                 eventInfo = document.getElementById('event-info');
+                 eventDetailsTitle = document.getElementById('event-details-title');
                 
                 eventDetailsTitle.textContent = `${date.type.charAt(0).toUpperCase() + date.type.slice(1)} Details`;
                 
@@ -628,7 +627,7 @@
             function deleteMember(memberId) {
                 if (confirm('Are you sure you want to delete this member? All attendance data for this member will be lost.')) {
                     // Remove member from members array
-                    const memberIndex = members.findIndex(m => m.id === memberId);
+                     memberIndex = members.findIndex(m => m.id === memberId);
                     if (memberIndex !== -1) {
                         members.splice(memberIndex, 1);
                     }
@@ -643,19 +642,19 @@
             // Open modal to add/edit date
             function openEditDateModal(dateId = null) {
                 currentEditingDateId = dateId;
-                const modalTitle = document.getElementById('modal-title');
-                const modalDate = document.getElementById('modal-date');
-                const modalEventType = document.getElementById('modal-event-type');
-                const modalStartTime = document.getElementById('modal-start-time');
-                const modalEndTime = document.getElementById('modal-end-time');
-                const modalLocation = document.getElementById('modal-location');
-                const modalNotes = document.getElementById('modal-notes');
+                 modalTitle = document.getElementById('modal-title');
+                 modalDate = document.getElementById('modal-date');
+                 modalEventType = document.getElementById('modal-event-type');
+                 modalStartTime = document.getElementById('modal-start-time');
+                 modalEndTime = document.getElementById('modal-end-time');
+                 modalLocation = document.getElementById('modal-location');
+                 modalNotes = document.getElementById('modal-notes');
                 
                 // Show or hide delete button based on whether we're editing
                 if (dateId) {
                     deleteBtn.style.display = 'block';
                     modalTitle.textContent = 'Edit Event';
-                    const date = dates.find(d => d.id === dateId);
+                     date = dates.find(d => d.id === dateId);
                     modalDate.value = formatDateForInput(date.date);
                     modalEventType.value = date.type;
                     modalStartTime.value = date.startTime || '';
@@ -666,7 +665,7 @@
                     deleteBtn.style.display = 'none';
                     modalTitle.textContent = 'Add New Date';
                     // Set default date to today
-                    const today = new Date();
+                     today = new Date();
                     modalDate.value = formatDateForInput(today);
                     modalEventType.value = 'rehearsal';
                     modalStartTime.value = '19:00';
@@ -680,20 +679,20 @@
             
             // Format date for input[type="date"]
             function formatDateForInput(date) {
-                const year = date.getFullYear();
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const day = date.getDate().toString().padStart(2, '0');
+                 year = date.getFullYear();
+                 month = (date.getMonth() + 1).toString().padStart(2, '0');
+                 day = date.getDate().toString().padStart(2, '0');
                 return `${year}-${month}-${day}`;
             }
             
             // Save date from modal
             function saveDate() {
-                const modalDate = document.getElementById('modal-date');
-                const modalEventType = document.getElementById('modal-event-type');
-                const modalStartTime = document.getElementById('modal-start-time');
-                const modalEndTime = document.getElementById('modal-end-time');
-                const modalLocation = document.getElementById('modal-location');
-                const modalNotes = document.getElementById('modal-notes');
+                 modalDate = document.getElementById('modal-date');
+                 modalEventType = document.getElementById('modal-event-type');
+                 modalStartTime = document.getElementById('modal-start-time');
+                 modalEndTime = document.getElementById('modal-end-time');
+                 modalLocation = document.getElementById('modal-location');
+                 modalNotes = document.getElementById('modal-notes');
                 
                 if (!modalDate.value) {
                     alert('Please select a date');
@@ -712,11 +711,11 @@
                 }
                 
                 // Fix for date parsing - create date from input value
-                const dateObj = new Date(modalDate.value + 'T00:00:00'); // Add time to avoid timezone issues
+                 dateObj = new Date(modalDate.value + 'T00:00:00'); // Add time to avoid timezone issues
 
                 if (currentEditingDateId) {
                     // Update existing date
-                    const dateIndex = dates.findIndex(d => d.id === currentEditingDateId);
+                     dateIndex = dates.findIndex(d => d.id === currentEditingDateId);
                     if (dateIndex !== -1) {
                         dates[dateIndex].date = dateObj;
                         dates[dateIndex].type = modalEventType.value;
@@ -727,7 +726,7 @@
                     }
                 } else {
                     // Add new date
-                    const dateId = `date-${Date.now()}`;
+                     dateId = `date-${Date.now()}`;
                     dates.push({
                         id: dateId,
                         date: dateObj,
@@ -750,12 +749,12 @@
             
             // Delete date
             function deleteDate(dateId = null) {
-                const targetDateId = dateId || currentEditingDateId;
+                 targetDateId = dateId || currentEditingDateId;
                 if (!targetDateId) return;
                 
                 if (confirm('Are you sure you want to delete this date? All attendance data for this date will be lost.')) {
                     // Remove date from dates array
-                    const dateIndex = dates.findIndex(d => d.id === targetDateId);
+                     dateIndex = dates.findIndex(d => d.id === targetDateId);
                     if (dateIndex !== -1) {
                         dates.splice(dateIndex, 1);
                     }
@@ -779,14 +778,14 @@
             
             // Save member from modal
             function saveMember() {
-                const memberName = document.getElementById('modal-member-name').value.trim();
+                 memberName = document.getElementById('modal-member-name').value.trim();
                 
                 if (!memberName) {
                     alert('Please enter a name for the member');
                     return;
                 }
                 
-                const memberId = `member-${Date.now()}`;
+                 memberId = `member-${Date.now()}`;
                 members.push({
                     id: memberId,
                     name: memberName
@@ -810,11 +809,6 @@
             document.getElementById('add-member').addEventListener('click', function() {
                 openAddMemberModal();
             });
-            
-            document.getElementById('print').addEventListener('click', function() {
-                window.print();
-            });
-            
             document.getElementById('modal-save').addEventListener('click', saveDate);
             document.getElementById('modal-cancel').addEventListener('click', function() {
                 dateModal.style.display = 'none';
@@ -851,4 +845,5 @@
         });
     </script>
 </body>
+
 </html>
